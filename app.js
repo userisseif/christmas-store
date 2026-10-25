@@ -489,7 +489,7 @@ function bindCoupon() {
 function checkout() {
   if (!cart.length) return cartPage();
   const t = totals();
-  const live = !!S.paypalClientId;
+  const live = !!S.paypalClientId && !S.sampleMode;
   app.innerHTML = `<div class="wrap"><div class="crumbs" style="padding-top:24px"><a href="#/cart">Cart</a> / Checkout</div><div class="checkout">
     <div class="panel">
       <h3>Checkout</h3>
@@ -499,7 +499,7 @@ function checkout() {
       </div>
       <div style="margin-top:20px" id="payArea">
         ${live ? `<div id="paypal-buttons"></div>` : `<button class="btn btn-berry btn-block" id="testOrder">Place test order</button>
-        <div class="preview-box"><b>Preview mode.</b> Payments are switched off, so no money is taken. The store owner turns on real checkout by adding a PayPal Client ID in <code>config.js</code>.</div>`}
+        <div class="preview-box"><b>Preview mode.</b> Payments are switched off, so no money is taken. Real checkout opens once the store's products are live.</div>`}
       </div>
     </div>
     <div><div class="panel"><h3>Your order</h3>${cartLines(false)}

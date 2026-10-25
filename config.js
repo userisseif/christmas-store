@@ -14,8 +14,9 @@ window.STORE = {
   // PayPal checkout. Leave empty to keep the store in PREVIEW MODE (no real payments).
   // To go live: create a free PayPal Business account, open developer.paypal.com,
   // make an app, and paste its LIVE "Client ID" here.
-  paypalClientId: "",
+  paypalClientId: "BAAM9KOuLblSl5VMK8jgVR5mG3rLFCSsZ1FrRnJHTYBLIKzwnj8hegbYoGtx_pW7NA7sb5_l_BHHCT-eq4",
 
+  // Real payments only switch on when sampleMode is false (sample items can't be bought).
   // While true, every product shows a small "Sample" label so nobody mistakes
   // placeholder items for real stock. Set to false once products are linked to a supplier.
   sampleMode: true
