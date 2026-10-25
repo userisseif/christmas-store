@@ -19,5 +19,5 @@ window.STORE = {
   // Real payments only switch on when sampleMode is false (sample items can't be bought).
   // While true, every product shows a small "Sample" label so nobody mistakes
   // placeholder items for real stock. Set to false once products are linked to a supplier.
-  sampleMode: true
+  sampleMode: false
 };
