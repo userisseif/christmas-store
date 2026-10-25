@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evergreen Lane | Christmas Shop</title>
+<meta name="description" content="Christmas lights, ornaments, mugs, wreaths, sweaters and cozy holiday decor. Free US shipping over $50.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>">
+</head>
+<body>
+<canvas id="snow" aria-hidden="true"></canvas>
+
+<div class="announce" id="announce"></div>
+
+<header class="header">
+  <div class="header-in">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a href="#/" class="logo" id="logo"></a>
+    <div class="search" id="searchWrap">
+      <svg viewBox="0 0 24 24" class="search-ic"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="search" type="search" placeholder="Search lights, mugs, ornaments..." autocomplete="off" aria-label="Search products">
+      <div class="suggest" id="suggest" hidden></div>
+    </div>
+    <nav class="head-actions">
+      <a href="#/wishlist" class="icon-btn" aria-label="Wishlist">
+        <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3 4.5 6.6 4.5c2.1 0 3.4 1.2 4.1 2.3h2.6c.7-1.1 2-2.3 4.1-2.3 3.6 0 5.4 3.7 3.8 6.9C19 15.6 12 20 12 20z"/></svg>
+        <span class="badge" id="wishCount" hidden>0</span>
+      </a>
+      <button class="icon-btn" id="cartBtn" aria-label="Open cart">
+        <svg viewBox="0 0 24 24"><path d="M5 7h14l-1.3 11.1a2 2 0 0 1-2 1.9H8.3a2 2 0 0 1-2-1.9L5 7z"/><path d="M9 7V6a3 3 0 0 1 6 0v1"/></svg>
+        <span class="badge" id="cartCount" hidden>0</span>
+      </button>
+    </nav>
+  </div>
+  <nav class="catnav" id="catnav"></nav>
+</header>
+
+<div class="drawer-mask" id="mask"></div>
+<aside class="mobile-menu" id="mobileMenu" aria-label="Menu"></aside>
+
+<aside class="cart-drawer" id="cartDrawer" aria-label="Cart">
+  <div class="cd-head"><h3>Your cart</h3><button class="icon-btn" id="cartClose" aria-label="Close cart"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="cd-ship" id="cdShip"></div>
+  <div class="cd-body" id="cdBody"></div>
+  <div class="cd-foot" id="cdFoot"></div>
+</aside>
+
+<main id="app" tabindex="-1"></main>
+
+<footer class="footer">
+  <div class="footer-in">
+    <div>
+      <div class="logo foot-logo" id="footLogo"></div>
+      <p class="muted">Holiday magic, delivered across the USA. Cozy decor, twinkling lights and gifts for everyone on your list.</p>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <ul id="footCats"></ul>
+    </div>
+    <div>
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#/page/shipping">Shipping</a></li>
+        <li><a href="#/page/returns">Returns &amp; refunds</a></li>
+        <li><a href="#/page/faq">FAQ</a></li>
+        <li><a href="#/page/contact">Contact us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get holiday deals</h4>
+      <form class="news" id="newsForm"><input type="email" required placeholder="Your email" aria-label="Email"><button class="btn btn-sm">Join</button></form>
+      <p class="muted small" id="newsMsg"></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span id="copy"></span>
+    <span class="pay-icons">PayPal · Visa · Mastercard · Amex</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="config.js"></script>
+<script src="products.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
