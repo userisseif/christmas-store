@@ -8,6 +8,7 @@ const byId = Object.fromEntries(P.map(p => [p.id, p]));
 const catById = Object.fromEntries(C.map(c => [c.id, c]));
 // Ratings and reviews are demo filler: they only show while sampleMode is on. Never publish made-up reviews on a live store.
 const DEMO = !!S.sampleMode;
+const HAS_SALE = P.some(p => p.compare);
 const money = n => "$" + n.toFixed(2);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const store = {
@@ -29,6 +30,7 @@ let coupon = store.get("coupon", null);
 const saveCart = () => { store.set("cart", cart); renderCartUI(); };
 const saveWish = () => { store.set("wish", wish); renderWishCount(); };
 
+const optOf = (p, opt) => p.options && opt ? p.options.values.find(v => v.v === opt) : null;
 const unitPrice = (p, opt) => p.price + (p.options && opt ? (p.options.values.find(v => v.v === opt)?.add || 0) : 0);
 const lineKey = (id, color, opt) => [id, color || "", opt || ""].join("|");
 function addToCart(id, color, opt, qty = 1) {
@@ -62,12 +64,13 @@ const heart = '<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3
 function card(p) {
   const off = pctOff(p);
   return `<article class="card reveal">
-    <a href="#/p/${p.id}" class="card-media" aria-label="${esc(p.name)}">
-      <img src="${p.img[0]}" alt="${esc(p.name)}" loading="lazy">
+    <a href="#/p/${p.id}" class="card-media" aria-label="${esc(p.name)}"${p.video ? ` data-video="${p.video}"` : ""}>
+      <img src="${p.thumb || p.img[0]}" alt="${esc(p.name)}" loading="lazy">
+      ${p.video ? `<span class="vid-badge" aria-hidden="true">▶ Video</span>` : ""}
       <div class="tags">
         ${off ? `<span class="tag sale">-${off}%</span>` : ""}
         ${p.tags?.includes("new") ? '<span class="tag new">New</span>' : ""}
-        ${p.tags?.includes("bestseller") ? '<span class="tag">Bestseller</span>' : ""}
+        ${p.tags?.includes("trending") ? '<span class="tag">Trending</span>' : ""}
         ${S.sampleMode ? '<span class="tag sample">Sample</span>' : ""}
       </div>
     </a>
@@ -91,8 +94,8 @@ function renderChrome() {
   document.title = `${S.name} | ${S.tagline}`;
   $("#announce").innerHTML = `Free US shipping on orders over <b>$${S.freeShippingOver}</b> &nbsp;·&nbsp; ${S.couponBanner || ""}`;
   const links = C.map(c => `<a href="#/shop?cat=${c.id}" data-cat="${c.id}">${esc(c.name)}</a>`).join("");
-  $("#catnav").innerHTML = `<a href="#/shop">Shop all</a>${links}<a href="#/shop?sale=1" class="sale">Sale</a>`;
-  $("#mobileMenu").innerHTML = `<div class="logo" style="margin-bottom:14px">${logo}</div><a href="#/">Home</a><a href="#/shop">Shop all</a>${links}<a href="#/shop?sale=1">Sale</a><a href="#/wishlist">Wishlist</a><a href="#/page/contact">Contact</a>`;
+  $("#catnav").innerHTML = `<a href="#/shop">Shop all</a>${links}${HAS_SALE ? '<a href="#/shop?sale=1" class="sale">Sale</a>' : ""}`;
+  $("#mobileMenu").innerHTML = `<div class="logo" style="margin-bottom:14px">${logo}</div><a href="#/">Home</a><a href="#/shop">Shop all</a>${links}${HAS_SALE ? '<a href="#/shop?sale=1">Sale</a>' : ""}<a href="#/wishlist">Wishlist</a><a href="#/page/contact">Contact</a>`;
   $("#footCats").innerHTML = C.map(c => `<li><a href="#/shop?cat=${c.id}">${esc(c.name)}</a></li>`).join("");
   $("#copy").textContent = `© ${new Date().getFullYear()} ${S.name}. All rights reserved.`;
 }
@@ -218,9 +221,10 @@ function daysToXmas() {
   return Math.max(0, x - now);
 }
 function home() {
-  const best = P.filter(p => p.tags?.includes("bestseller")).slice(0, 8);
+  const best = P.filter(p => p.tags?.includes("trending")).slice(0, 8);
   const fresh = P.filter(p => p.tags?.includes("new")).slice(0, 4);
-  const sale = P.filter(p => p.compare).sort((a, b) => pctOff(b) - pctOff(a)).slice(0, 4);
+  const vids = P.filter(p => p.video).slice(0, 4);
+  const under = P.filter(p => p.price < 25).sort((a, b) => a.price - b.price).slice(0, 4);
   const h = S.hero;
   app.innerHTML = `
   <section class="hero">
@@ -251,18 +255,22 @@ function home() {
     <div class="cats">${C.map(c => `<a href="#/shop?cat=${c.id}" class="cat reveal"><img src="${c.img}" alt="" loading="lazy"><div class="cat-label"><h3>${esc(c.name)}</h3><span>${P.filter(p => p.cat === c.id).length} products</span></div></a>`).join("")}</div>
   </div></section>
   <section class="section" style="padding-top:0"><div class="wrap">
-    <div class="sec-head"><h2>Bestsellers</h2><a href="#/shop?sort=popular">Shop bestsellers →</a></div>
+    <div class="sec-head"><h2>Trending this season</h2><a href="#/shop?sort=popular">Shop trending →</a></div>
     <div class="grid">${best.map(card).join("")}</div>
   </div></section>
   <section class="section" style="padding-top:0"><div class="wrap">
     <div class="band reveal">
-      <div><span class="eyebrow" style="color:#ffd9a0">Limited time</span><h2>Holiday deals up to ${Math.max(...P.map(pctOff))}% off</h2><p>Stock up on lights, ornaments and gifts before the big day. Prices this low won't last past December.</p><a href="#/shop?sale=1" class="btn btn-light">Shop the sale</a></div>
+      <div><span class="eyebrow" style="color:#ffd9a0">Holiday offer</span><h2>10% off everything with code XMAS10</h2><p>Stock up on lights, ornaments and gifts before the big day. Enter the code at checkout, and orders over $${S.freeShippingOver} ship free.</p><a href="#/shop" class="btn btn-light">Start shopping</a></div>
       <img src="${S.bandImg}" alt="" loading="lazy">
     </div>
   </div></section>
   <section class="section" style="padding-top:0"><div class="wrap">
-    <div class="sec-head"><h2>Biggest savings</h2><a href="#/shop?sale=1">All deals →</a></div>
-    <div class="grid">${sale.map(card).join("")}</div>
+    <div class="sec-head"><h2>See them in action</h2><a href="#/shop">Shop all →</a></div>
+    <div class="grid">${vids.map(card).join("")}</div>
+  </div></section>
+  <section class="section" style="padding-top:0"><div class="wrap">
+    <div class="sec-head"><h2>Stocking stuffers under $25</h2><a href="#/shop?sort=price-asc">Shop by price →</a></div>
+    <div class="grid">${under.map(card).join("")}</div>
   </div></section>
   <section class="section" style="padding-top:0"><div class="wrap">
     <div class="sec-head"><h2>New this season</h2><a href="#/shop?sort=new">See what's new →</a></div>
@@ -288,14 +296,14 @@ function shop(params) {
 
   let base = q ? searchProducts(q) : P.slice();
   const inCat = cat ? base.filter(p => p.cat === cat) : base;
-  let list = inCat.filter(p => (!sale || p.compare) && p.price >= min && p.price <= max && p.rating >= minRating && (!colorSel.length || (p.colors || []).some(c => colorSel.includes(c))));
+  let list = inCat.filter(p => (!sale || p.compare) && p.price >= min && p.price <= max && (!DEMO || p.rating >= minRating) && (!colorSel.length || (p.colors || []).some(c => colorSel.includes(c))));
   const sorters = {
-    featured: (a, b) => (b.tags?.includes("bestseller") - a.tags?.includes("bestseller")) || b.reviews - a.reviews,
-    popular: (a, b) => b.reviews - a.reviews,
+    featured: (a, b) => (b.tags?.includes("trending") - a.tags?.includes("trending")) || (b.pop || 0) - (a.pop || 0),
+    popular: (a, b) => (b.pop || 0) - (a.pop || 0),
     "price-asc": (a, b) => a.price - b.price,
     "price-desc": (a, b) => b.price - a.price,
     rating: (a, b) => b.rating - a.rating,
-    new: (a, b) => (b.tags?.includes("new") - a.tags?.includes("new")) || b.added - a.added,
+    new: (a, b) => (b.tags?.includes("new") - a.tags?.includes("new")) || (b.pop || 0) - (a.pop || 0),
     discount: (a, b) => pctOff(b) - pctOff(a)
   };
   if (sorters[sort]) list.sort(sorters[sort]);
@@ -333,7 +341,7 @@ function shop(params) {
         ${DEMO ? `<div class="fgroup"><h4>Rating</h4>
           ${[4.5, 4, 0].map(r => `<label><input type="radio" name="rt" value="${r}" ${minRating === r ? "checked" : ""}> ${r ? `${r}★ & up` : "Any rating"}</label>`).join("")}
         </div>` : ""}
-        <div class="fgroup"><h4>Deals</h4><label><input type="checkbox" id="fsale" ${sale ? "checked" : ""}> On sale only</label></div>
+        ${HAS_SALE ? "" : "<!--"}<div class="fgroup"><h4>Deals</h4><label><input type="checkbox" id="fsale" ${sale ? "checked" : ""}> On sale only</label></div>${HAS_SALE ? "" : "-->"}
         <a href="#/shop${q ? "?q=" + encodeURIComponent(q) : ""}" class="btn btn-ghost btn-sm btn-block" style="margin-top:16px">Clear filters</a>
       </aside>
       <section>
@@ -344,7 +352,7 @@ function shop(params) {
           </div>
           <label class="small muted">Sort by
             <select id="sort">
-              ${[["featured", "Featured"], ...(q ? [["relevance", "Best match"]] : []), ["popular", "Most popular"], ["new", "Newest"], ["price-asc", "Price: low to high"], ["price-desc", "Price: high to low"], ...(DEMO ? [["rating", "Top rated"]] : []), ["discount", "Biggest discount"]].map(([v, l]) => `<option value="${v}" ${sort === v ? "selected" : ""}>${l}</option>`).join("")}
+              ${[["featured", "Featured"], ...(q ? [["relevance", "Best match"]] : []), ["popular", "Most popular"], ["new", "Newest"], ["price-asc", "Price: low to high"], ["price-desc", "Price: high to low"], ...(DEMO ? [["rating", "Top rated"]] : []), ...(HAS_SALE ? [["discount", "Biggest discount"]] : [])].map(([v, l]) => `<option value="${v}" ${sort === v ? "selected" : ""}>${l}</option>`).join("")}
             </select>
           </label>
         </div>
@@ -356,7 +364,7 @@ function shop(params) {
   $$('input[name="cat"]').forEach(i => i.onchange = () => go({ cat: i.value, color: null }));
   $$('input[name="pr"]').forEach(i => i.onchange = () => go({ min: i.dataset.min === "0" ? null : i.dataset.min, max: i.dataset.max || null }));
   $$('input[name="rt"]').forEach(i => i.onchange = () => go({ rating: i.value === "0" ? null : i.value }));
-  $("#fsale").onchange = e => go({ sale: e.target.checked ? "1" : null });
+  if ($("#fsale")) $("#fsale").onchange = e => go({ sale: e.target.checked ? "1" : null });
   const priceGo = () => go({ min: $("#fmin").value || null, max: $("#fmax").value || null });
   $("#fmin").onchange = priceGo; $("#fmax").onchange = priceGo;
   $$("[data-color]").forEach(b => b.onclick = () => {
@@ -376,14 +384,15 @@ function product(id) {
   const related = P.filter(x => x.cat === p.cat && x.id !== p.id).slice(0, 4);
   const recent = viewed.slice(1, 5).map(i => byId[i]).filter(Boolean);
   const off = pctOff(p);
-  const d1 = new Date(Date.now() + 7 * 864e5), d2 = new Date(Date.now() + 12 * 864e5);
+  const [dMin, dMax] = p.days || [7, 12];
+  const d1 = new Date(Date.now() + dMin * 864e5), d2 = new Date(Date.now() + dMax * 864e5);
   const fmt = d => d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 
   app.innerHTML = `<div class="wrap">
     <div class="crumbs" style="padding-top:24px"><a href="#/">Home</a> / <a href="#/shop?cat=${p.cat}">${esc(catById[p.cat].name)}</a> / ${esc(p.name)}</div>
     <div class="pdp">
       <div class="gallery">
-        <div class="thumbs">${p.img.map((src, i) => `<button data-img="${i}" class="${i ? "" : "on"}" aria-label="Image ${i + 1}"><img src="${src}" alt=""></button>`).join("")}</div>
+        <div class="thumbs">${p.img.map((src, i) => `<button data-img="${i}" class="${i ? "" : "on"}" aria-label="Image ${i + 1}"><img src="${src}" alt=""></button>`).join("")}${p.video ? `<button data-media="video" class="th-vid" aria-label="Watch video"><img src="${p.poster || p.img[0]}" alt=""><span>▶</span></button>` : ""}${p.room ? `<button data-media="room" class="th-room" aria-label="See it in a room"><img src="${ROOMS[p.room.scene].img}" alt=""><span>In your<br>home</span></button>` : ""}</div>
         <div class="main-img" id="mainImg"><img src="${p.img[0]}" alt="${esc(p.name)}"><div class="tags">${off ? `<span class="tag sale">Save ${off}%</span>` : ""}${S.sampleMode ? '<span class="tag sample">Sample</span>' : ""}</div></div>
       </div>
       <div>
@@ -399,6 +408,7 @@ function product(id) {
           <button class="btn btn-berry" id="addBtn">Add to cart</button>
           <button class="icon-btn wish ${wish.includes(p.id) ? "on" : ""}" data-wish="${p.id}" style="position:static;width:48px;height:48px;border:1.5px solid var(--line-2)" aria-label="Save to wishlist">${heart}</button>
         </div>
+        ${p.room ? `<button class="btn btn-ghost btn-sm room-cta" id="roomCta">✨ See it in your home</button>` : ""}
         <div class="stock"><span class="dot"></span>In stock, ready to ship</div>
         <div class="assure">
           <div><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>Estimated delivery ${fmt(d1)} to ${fmt(d2)}</div>
@@ -408,7 +418,7 @@ function product(id) {
         </div>
         <div style="margin-top:24px">
           <details class="acc" open><summary>Details</summary><ul>${p.bullets.map(b => `<li>${esc(b)}</li>`).join("")}</ul></details>
-          <details class="acc"><summary>Shipping</summary><p>Ships to ${esc(S.shipsTo)}. ${esc(S.deliveryText)}. Free shipping on orders over $${S.freeShippingOver}, otherwise ${money(S.shippingFee)} flat. You'll get a tracking number by email once your order ships.</p></details>
+          <details class="acc"><summary>Shipping</summary><p>Ships to ${esc(S.shipsTo)}. Arrives in about ${dMin} to ${dMax} days. Free shipping on orders over $${S.freeShippingOver}, otherwise ${money(S.shippingFee)} flat. You'll get a tracking number by email once your order ships.</p></details>
           <details class="acc"><summary>Returns</summary><p>Not in love with it? Contact us within 30 days of delivery for a refund or replacement. Items arriving damaged are replaced free.</p></details>
         </div>
         ${S.sampleMode ? `<div class="sample-note"><b>Sample product.</b> This item is a placeholder to show how the store works. Its photo is a free stock image and it is not linked to a supplier yet.</div>` : ""}
@@ -427,10 +437,20 @@ function product(id) {
     $("#pPrice").innerHTML = `<b>${money(u)}</b>${p.compare ? `<s>${money(p.compare + (u - p.price))}</s><span class="off">Save ${off}%</span>` : ""}`;
   };
   setPrice();
-  $$("[data-img]").forEach(b => b.onclick = () => {
-    imgI = +b.dataset.img; $("#mainImg img").src = p.img[imgI];
-    $$("[data-img]").forEach(x => x.classList.toggle("on", x === b));
-  });
+  const mi = $("#mainImg");
+  const mark = b => $$(".thumbs button").forEach(x => x.classList.toggle("on", x === b));
+  const showImg = () => { mi.classList.remove("is-media"); mi.innerHTML = `<img src="${p.img[imgI]}" alt="${esc(p.name)}">`; };
+  $$("[data-img]").forEach(b => b.onclick = () => { imgI = +b.dataset.img; showImg(); mark(b); });
+  const showVideo = b => {
+    mi.classList.add("is-media");
+    mi.innerHTML = `<video src="${p.video}" poster="${p.poster || p.img[0]}" autoplay muted loop playsinline controls></video>`;
+    mark(b);
+  };
+  const showRoom = b => { mi.classList.add("is-media"); roomView(mi, p); mark(b); };
+  const vb = $('[data-media="video"]'), rb = $('[data-media="room"]');
+  if (vb) vb.onclick = () => showVideo(vb);
+  if (rb) rb.onclick = () => showRoom(rb);
+  if ($("#roomCta")) $("#roomCta").onclick = () => { showRoom(rb); mi.scrollIntoView({ behavior: "smooth", block: "center" }); };
   $$(".opts.colors [data-color]").forEach(b => b.onclick = () => {
     color = b.dataset.color; $("#colorName").textContent = color;
     $$(".opts.colors [data-color]").forEach(x => x.classList.toggle("on", x === b));
@@ -442,12 +462,54 @@ function product(id) {
   $("#qm").onclick = () => { qty = Math.max(1, qty - 1); $("#qv").value = qty; };
   $("#qp").onclick = () => { qty = Math.min(20, qty + 1); $("#qv").value = qty; };
   $("#addBtn").onclick = () => addToCart(p.id, color, opt, qty);
-  const mi = $("#mainImg");
-  mi.onclick = () => { const z = document.createElement("div"); z.className = "zoom"; z.innerHTML = `<img src="${p.img[imgI]}" alt="">`; z.onclick = () => z.remove(); document.body.appendChild(z); };
+  mi.onclick = () => { if (mi.classList.contains("is-media")) return; const z = document.createElement("div"); z.className = "zoom"; z.innerHTML = `<img src="${p.img[imgI]}" alt="">`; z.onclick = () => z.remove(); document.body.appendChild(z); };
   if (matchMedia("(hover:hover)").matches) {
-    mi.onmousemove = e => { const r = mi.getBoundingClientRect(), img = $("img", mi); img.style.transformOrigin = `${((e.clientX - r.left) / r.width) * 100}% ${((e.clientY - r.top) / r.height) * 100}%`; img.style.transform = "scale(1.6)"; };
-    mi.onmouseleave = () => { $("img", mi).style.transform = ""; };
+    mi.onmousemove = e => { if (mi.classList.contains("is-media")) return; const r = mi.getBoundingClientRect(), img = $("img", mi); img.style.transformOrigin = `${((e.clientX - r.left) / r.width) * 100}% ${((e.clientY - r.top) / r.height) * 100}%`; img.style.transform = "scale(1.6)"; };
+    mi.onmouseleave = () => { if (!mi.classList.contains("is-media")) $("img", mi).style.transform = ""; };
   }
+}
+/* "See it in your home": the product cut-out placed in a real room photo. Drag to move, slider to resize. */
+const ROOMS = {
+  mantel: { img: "img/rooms/mantel.jpg", name: "Fireplace" },
+  tree: { img: "img/rooms/tree.jpg", name: "By the tree" },
+  gifts: { img: "img/rooms/gifts.jpg", name: "Christmas morning" },
+  modern: { img: "img/rooms/modern.jpg", name: "Living room" },
+  door: { img: "img/rooms/door.jpg", name: "Front door" },
+  bright: { img: "img/rooms/bright.jpg", name: "Sunroom" },
+  bedroom: { img: "img/rooms/bedroom.jpg", name: "Bedroom" },
+  kitchen: { img: "img/rooms/kitchen.jpg", name: "Kitchen" }
+};
+function roomView(host, p) {
+  const r = p.room;
+  const scenes = [r.scene, ...Object.keys(ROOMS).filter(k => k !== r.scene)].slice(0, 4);
+  let scene = r.scene, x = r.x, y = r.y, w = r.w;
+  host.innerHTML = `<div class="room" id="room">
+      <img class="room-bg" src="${ROOMS[scene].img}" alt="">
+      <img class="room-item" src="${r.cut}" alt="${esc(p.name)} shown in a room" draggable="false">
+      <span class="room-hint">Drag to move it</span>
+    </div>
+    <div class="room-bar">
+      <div class="room-scenes">${scenes.map(k => `<button data-scene="${k}" class="${k === scene ? "on" : ""}">${ROOMS[k].name}</button>`).join("")}</div>
+      <label class="room-size">Size <input type="range" min="5" max="60" value="${w}" id="roomSize"></label>
+    </div>`;
+  const room = $("#room", host), item = $(".room-item", host), bg = $(".room-bg", host);
+  const place = () => { item.style.left = x + "%"; item.style.top = y + "%"; item.style.width = w + "%"; };
+  place();
+  $$("[data-scene]", host).forEach(b => b.onclick = () => {
+    scene = b.dataset.scene; bg.src = ROOMS[scene].img;
+    $$("[data-scene]", host).forEach(o => o.classList.toggle("on", o === b));
+  });
+  $("#roomSize", host).oninput = e => { w = +e.target.value; place(); };
+  item.onpointerdown = e => {
+    e.preventDefault(); item.setPointerCapture(e.pointerId); room.classList.add("moved");
+    const rect = room.getBoundingClientRect(), sx = e.clientX, sy = e.clientY, ox = x, oy = y;
+    item.onpointermove = m => {
+      x = Math.min(95, Math.max(5, ox + (m.clientX - sx) / rect.width * 100));
+      y = Math.min(100, Math.max(12, oy + (m.clientY - sy) / rect.height * 100));
+      place();
+    };
+    item.onpointerup = () => { item.onpointermove = null; };
+  };
 }
 function reviewsFor(p) {
   const pool = [
@@ -516,7 +578,7 @@ function orderPayload() {
     const variant = [l.color, l.opt].filter(Boolean).join(" / ");
     return {
       name: (p.name + (variant ? " (" + variant + ")" : "")).slice(0, 127),
-      sku: [p.supplier?.sku || p.id, l.color, l.opt].filter(Boolean).join("|").slice(0, 127),
+      sku: (optOf(p, l.opt)?.sku || [p.supplier?.sku || p.id, l.color, l.opt].filter(Boolean).join("|")).slice(0, 127),
       quantity: String(l.qty),
       unit_amount: { currency_code: S.currency, value: unitPrice(p, l.opt).toFixed(2) },
       category: "PHYSICAL_GOODS"
@@ -573,7 +635,7 @@ function wishlist() {
     ${list.length ? `<div class="grid" style="padding-bottom:60px">${list.map(card).join("")}</div>` : `<div class="empty" style="margin-bottom:60px"><div style="font-size:40px">💝</div><h3>Nothing saved yet</h3><p class="muted">Tap the heart on any product to save it here.</p><a href="#/shop" class="btn btn-sm">Browse products</a></div>`}</div>`;
 }
 const PAGES = {
-  shipping: ["Shipping", `<p>We ship to ${S.shipsTo}. Orders are processed within 1 to 3 business days and usually arrive in 7 to 12 business days. Shipping is free on orders over $${S.freeShippingOver}; smaller orders ship for a flat ${money(S.shippingFee)}.</p><p>Some items ship separately from different warehouses, so they may arrive in more than one package. Every order gets a tracking number.</p><h3>Christmas delivery</h3><p>To receive your order before Christmas, we recommend ordering by <b>December 8</b>.</p>`],
+  shipping: ["Shipping", `<p>We ship to ${S.shipsTo}. Orders are processed within 1 to 3 business days. Items from our US warehouse usually arrive in 5 to 8 days; items from our international warehouse usually arrive in 7 to 14 days. Each product page shows its own delivery estimate. Shipping is free on orders over $${S.freeShippingOver}; smaller orders ship for a flat ${money(S.shippingFee)}.</p><p>Some items ship separately from different warehouses, so they may arrive in more than one package. Every order gets a tracking number.</p><h3>Christmas delivery</h3><p>To receive your order before Christmas, we recommend ordering by <b>December 5</b>.</p>`],
   returns: ["Returns &amp; refunds", `<p>We want you to love your order. If something isn't right, email us within 30 days of delivery with your order number and a photo, and we'll make it right with a replacement or a refund.</p><p>Items that arrive damaged or faulty are replaced or refunded at no cost to you.</p>`],
   faq: ["FAQ", `<h3>How do I pay?</h3><p>With PayPal or any major credit or debit card through PayPal's secure checkout. You don't need a PayPal account.</p><h3>Can I track my order?</h3><p>Yes, you'll receive tracking by email as soon as your order ships.</p><h3>Do you ship outside the US?</h3><p>Not right now. We currently ship to ${S.shipsTo} only.</p><h3>Can I add a gift note?</h3><p>Yes, there's a gift note box at checkout.</p>`],
   contact: ["Contact us", `<p>Questions about an order or a product? We reply within 24 hours.</p><p>Email: <a href="mailto:${S.email}" style="color:var(--berry);font-weight:600">${S.email}</a></p>`]
@@ -606,6 +668,17 @@ function route() {
 window.addEventListener("hashchange", route);
 
 const io = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -40px" }) : null;
+// Product cards with a video play it silently on hover (desktop only; nothing loads until then).
+if (matchMedia("(hover:hover)").matches) {
+  document.addEventListener("mouseover", e => {
+    const m = e.target.closest?.(".card-media[data-video]");
+    if (!m || m.querySelector("video")) return;
+    const v = document.createElement("video");
+    Object.assign(v, { src: m.dataset.video, muted: true, loop: true, playsInline: true, autoplay: true });
+    v.className = "card-vid"; m.appendChild(v);
+    m.addEventListener("mouseleave", () => v.remove(), { once: true });
+  });
+}
 function observeReveal() { $$(".reveal:not(.in)").forEach(el => io ? io.observe(el) : el.classList.add("in")); }
 
 $("#newsForm").onsubmit = e => { e.preventDefault(); $("#newsMsg").textContent = "You're on the list! Watch your inbox for holiday deals."; e.target.reset(); };

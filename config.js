@@ -9,7 +9,7 @@ window.STORE = {
   coupons: { XMAS10: 10 },             // promo codes: CODE: percent off
   couponBanner: "Use code <b>XMAS10</b> for 10% off",
   shipsTo: "the United States",
-  deliveryText: "Arrives in 7 to 12 business days",
+  deliveryText: "Most orders arrive in 7 to 14 days",
 
   // PayPal checkout. Leave empty to keep the store in PREVIEW MODE (no real payments).
   // To go live: create a free PayPal Business account, open developer.paypal.com,
