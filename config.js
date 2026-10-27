@@ -2,7 +2,7 @@
 window.STORE = {
   name: "Evergreen Lane",
   tagline: "The Christmas Shop",
-  email: "hello@example.com",          // your support email (shown on Contact page)
+  email: "evergreenlaneshop@gmail.com",         // your support email (shown on Contact page)
   currency: "USD",
   freeShippingOver: 50,                 // free US shipping threshold in $
   shippingFee: 5.99,                    // flat shipping under the threshold
