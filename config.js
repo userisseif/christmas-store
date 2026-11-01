@@ -6,7 +6,7 @@ window.STORE = {
   currency: "USD",
   freeShippingOver: 50,                 // free US shipping threshold in $
   shippingFee: 5.99,                    // flat shipping under the threshold
-  coupons: { XMAS10: 10, LAURIE10: 10 },             // promo codes: CODE: percent off
+  coupons: { XMAS10: 10, LAURIE10: 10, MIRANDA10: 10 },             // promo codes: CODE: percent off
   couponBanner: "Use code <b>XMAS10</b> for 10% off",
   shipsTo: "the United States",
   deliveryText: "Most orders arrive in 7 to 14 days",
