@@ -587,7 +587,7 @@ function orderPayload() {
   return {
     intent: "CAPTURE",
     purchase_units: [{
-      description: `${S.name} order`,
+      description: `${S.name} order${t.disc && coupon ? " (code " + coupon + ")" : ""}`,
       custom_id: ($("#gift")?.value || "").slice(0, 120),
       items,
       amount: {
