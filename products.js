@@ -664,6 +664,70 @@ window.PRODUCTS = [
   "poster": "img/v/snowflake-projector.jpg"
  },
  {
+  "id": "plug-in-tree-projector",
+  "cat": "lights",
+  "name": "Plug-In Christmas Tree Projector",
+  "price": 24.99,
+  "img": [
+   "img/p/plug-in-tree-projector-1.jpg",
+   "img/p/plug-in-tree-projector-2.jpg",
+   "img/p/plug-in-tree-projector-3.jpg",
+   "img/p/plug-in-tree-projector-4.jpg",
+   "img/p/plug-in-tree-projector-5.jpg",
+   "img/p/plug-in-tree-projector-6.jpg"
+  ],
+  "thumb": "img/p/plug-in-tree-projector-card.jpg",
+  "desc": "A tiny tinsel Christmas tree that plugs into any USB wall adapter and fills your ceiling with snowflakes, stars, Santas and candy canes. Plug it in, turn off the lights, done.",
+  "bullets": [
+   "USB powered: plugs into a phone charger or power bank",
+   "Projects Christmas patterns across the ceiling and walls",
+   "Glowing mini tinsel tree design",
+   "Great stocking stuffer and gift"
+  ],
+  "keywords": [
+   "plug",
+   "usb",
+   "christmas",
+   "tree",
+   "projector",
+   "night",
+   "light"
+  ],
+  "tags": [
+   "new",
+   "trending"
+  ],
+  "pop": 0,
+  "days": [
+   7,
+   14
+  ],
+  "from": "CN",
+  "supplier": {
+   "name": "CJdropshipping",
+   "sku": "CJYS315715002BY",
+   "url": "https://cjdropshipping.com/product/x-p-2609120245271608200.html",
+   "cost": 14.21
+  },
+  "options": {
+   "name": "Pack",
+   "values": [
+    {
+     "v": "1 projector",
+     "add": 0,
+     "sku": "CJYS315715002BY"
+    },
+    {
+     "v": "2 projectors",
+     "add": 10,
+     "sku": "CJYS315715005EV"
+    }
+   ]
+  },
+  "video": "img/v/plug-in-tree-projector.mp4",
+  "poster": "img/v/plug-in-tree-projector.jpg"
+ },
+ {
   "id": "led-figure-tealights",
   "cat": "lights",
   "name": "Santa & Snowman LED Tealights",
