@@ -53,6 +53,70 @@ window.CATEGORIES = [
 
 window.PRODUCTS = [
  {
+  "id": "plug-in-tree-projector",
+  "cat": "lights",
+  "name": "Plug-In Christmas Tree Projector",
+  "price": 24.99,
+  "img": [
+   "img/p/plug-in-tree-projector-1.jpg",
+   "img/p/plug-in-tree-projector-2.jpg",
+   "img/p/plug-in-tree-projector-3.jpg",
+   "img/p/plug-in-tree-projector-4.jpg",
+   "img/p/plug-in-tree-projector-5.jpg",
+   "img/p/plug-in-tree-projector-6.jpg"
+  ],
+  "thumb": "img/p/plug-in-tree-projector-card.jpg",
+  "desc": "A tiny tinsel Christmas tree that plugs into any USB wall adapter and fills your ceiling with snowflakes, stars, Santas and candy canes. Plug it in, turn off the lights, done.",
+  "bullets": [
+   "USB powered: plugs into a phone charger or power bank",
+   "Projects Christmas patterns across the ceiling and walls",
+   "Glowing mini tinsel tree design",
+   "Great stocking stuffer and gift"
+  ],
+  "keywords": [
+   "plug",
+   "usb",
+   "christmas",
+   "tree",
+   "projector",
+   "night",
+   "light"
+  ],
+  "tags": [
+   "new",
+   "trending"
+  ],
+  "pop": 1,
+  "days": [
+   7,
+   14
+  ],
+  "from": "CN",
+  "supplier": {
+   "name": "CJdropshipping",
+   "sku": "CJYS315715002BY",
+   "url": "https://cjdropshipping.com/product/x-p-2609120245271608200.html",
+   "cost": 14.21
+  },
+  "options": {
+   "name": "Pack",
+   "values": [
+    {
+     "v": "1 projector",
+     "add": 0,
+     "sku": "CJYS315715002BY"
+    },
+    {
+     "v": "2 projectors",
+     "add": 10,
+     "sku": "CJYS315715005EV"
+    }
+   ]
+  },
+  "video": "img/v/plug-in-tree-projector.mp4",
+  "poster": "img/v/plug-in-tree-projector.jpg"
+ },
+ {
   "id": "icicle-curtain-lights",
   "cat": "lights",
   "name": "Icicle Curtain Lights with Remote",
@@ -99,62 +163,62 @@ window.PRODUCTS = [
    "name": "Color / length",
    "values": [
     {
-     "v": "Blue \u00b7 13 ft x 2 ft",
+     "v": "Blue · 13 ft x 2 ft",
      "add": 0.0,
      "sku": "CJZF158556316PK"
     },
     {
-     "v": "Multicolor \u00b7 13 ft x 2 ft",
+     "v": "Multicolor · 13 ft x 2 ft",
      "add": 0.0,
      "sku": "CJZF158556340NM"
     },
     {
-     "v": "Warm White \u00b7 13 ft x 2 ft",
+     "v": "Warm White · 13 ft x 2 ft",
      "add": 0.0,
      "sku": "CJZF158556328BY"
     },
     {
-     "v": "White \u00b7 13 ft x 2 ft",
+     "v": "White · 13 ft x 2 ft",
      "add": 0.0,
      "sku": "CJZF158556304DW"
     },
     {
-     "v": "Blue \u00b7 16 ft",
+     "v": "Blue · 16 ft",
      "add": 5.0,
      "sku": "CJZF158556317QJ"
     },
     {
-     "v": "Multicolor \u00b7 16 ft",
+     "v": "Multicolor · 16 ft",
      "add": 5.0,
      "sku": "CJZF158556341OL"
     },
     {
-     "v": "Warm White \u00b7 16 ft",
+     "v": "Warm White · 16 ft",
      "add": 5.0,
      "sku": "CJZF158556329CX"
     },
     {
-     "v": "White \u00b7 16 ft",
+     "v": "White · 16 ft",
      "add": 5.0,
      "sku": "CJZF158556305EV"
     },
     {
-     "v": "Blue \u00b7 33 ft",
+     "v": "Blue · 33 ft",
      "add": 14.0,
      "sku": "CJZF158556318RI"
     },
     {
-     "v": "Multicolor \u00b7 33 ft",
+     "v": "Multicolor · 33 ft",
      "add": 14.0,
      "sku": "CJZF158556342PK"
     },
     {
-     "v": "Warm White \u00b7 33 ft",
+     "v": "Warm White · 33 ft",
      "add": 14.0,
      "sku": "CJZF158556330DW"
     },
     {
-     "v": "White \u00b7 33 ft",
+     "v": "White · 33 ft",
      "add": 14.0,
      "sku": "CJZF158556306FU"
     }
@@ -207,62 +271,62 @@ window.PRODUCTS = [
    "name": "Style / length",
    "values": [
     {
-     "v": "Multicolor gold \u00b7 3 ft",
+     "v": "Multicolor gold · 3 ft",
      "add": 0.0,
      "sku": "CJJT133223310JQ"
     },
     {
-     "v": "Multicolor silver \u00b7 3 ft",
+     "v": "Multicolor silver · 3 ft",
      "add": 0.0,
      "sku": "CJJT133223305EV"
     },
     {
-     "v": "Warm gold \u00b7 3 ft",
+     "v": "Warm gold · 3 ft",
      "add": 0.0,
      "sku": "CJJT133223308HS"
     },
     {
-     "v": "Warm silver \u00b7 3 ft",
+     "v": "Warm silver · 3 ft",
      "add": 0.0,
      "sku": "CJJT133223311KP"
     },
     {
-     "v": "Multicolor gold \u00b7 6.5 ft",
+     "v": "Multicolor gold · 6.5 ft",
      "add": 1.0,
      "sku": "CJJT133223307GT"
     },
     {
-     "v": "Multicolor silver \u00b7 6.5 ft",
+     "v": "Multicolor silver · 6.5 ft",
      "add": 1.0,
      "sku": "CJJT133223306FU"
     },
     {
-     "v": "Warm gold \u00b7 6.5 ft",
+     "v": "Warm gold · 6.5 ft",
      "add": 1.0,
      "sku": "CJJT133223309IR"
     },
     {
-     "v": "Warm silver \u00b7 6.5 ft",
+     "v": "Warm silver · 6.5 ft",
      "add": 1.0,
      "sku": "CJJT133223312LO"
     },
     {
-     "v": "Multicolor gold \u00b7 16 ft",
+     "v": "Multicolor gold · 16 ft",
      "add": 3.0,
      "sku": "CJJT133223303CX"
     },
     {
-     "v": "Multicolor silver \u00b7 16 ft",
+     "v": "Multicolor silver · 16 ft",
      "add": 3.0,
      "sku": "CJJT133223304DW"
     },
     {
-     "v": "Warm gold \u00b7 16 ft",
+     "v": "Warm gold · 16 ft",
      "add": 3.0,
      "sku": "CJJT133223301AZ"
     },
     {
-     "v": "Warm silver \u00b7 16 ft",
+     "v": "Warm silver · 16 ft",
      "add": 3.0,
      "sku": "CJJT133223302BY"
     }
@@ -316,32 +380,32 @@ window.PRODUCTS = [
    "name": "Light / length",
    "values": [
     {
-     "v": "Warm White \u00b7 3 ft",
+     "v": "Warm White · 3 ft",
      "add": 0.0,
      "sku": "CJHD189597201AZ"
     },
     {
-     "v": "Cool White \u00b7 3 ft",
+     "v": "Cool White · 3 ft",
      "add": 0.0,
      "sku": "CJHD189597207GT"
     },
     {
-     "v": "Warm White \u00b7 10 ft",
+     "v": "Warm White · 10 ft",
      "add": 1.0,
      "sku": "CJHD189597203CX"
     },
     {
-     "v": "Cool White \u00b7 10 ft",
+     "v": "Cool White · 10 ft",
      "add": 1.0,
      "sku": "CJHD189597209IR"
     },
     {
-     "v": "Warm White \u00b7 20 ft",
+     "v": "Warm White · 20 ft",
      "add": 2.0,
      "sku": "CJHD189597206FU"
     },
     {
-     "v": "Cool White \u00b7 20 ft",
+     "v": "Cool White · 20 ft",
      "add": 2.0,
      "sku": "CJHD189597212LO"
     }
@@ -664,70 +728,6 @@ window.PRODUCTS = [
   "poster": "img/v/snowflake-projector.jpg"
  },
  {
-  "id": "plug-in-tree-projector",
-  "cat": "lights",
-  "name": "Plug-In Christmas Tree Projector",
-  "price": 24.99,
-  "img": [
-   "img/p/plug-in-tree-projector-1.jpg",
-   "img/p/plug-in-tree-projector-2.jpg",
-   "img/p/plug-in-tree-projector-3.jpg",
-   "img/p/plug-in-tree-projector-4.jpg",
-   "img/p/plug-in-tree-projector-5.jpg",
-   "img/p/plug-in-tree-projector-6.jpg"
-  ],
-  "thumb": "img/p/plug-in-tree-projector-card.jpg",
-  "desc": "A tiny tinsel Christmas tree that plugs into any USB wall adapter and fills your ceiling with snowflakes, stars, Santas and candy canes. Plug it in, turn off the lights, done.",
-  "bullets": [
-   "USB powered: plugs into a phone charger or power bank",
-   "Projects Christmas patterns across the ceiling and walls",
-   "Glowing mini tinsel tree design",
-   "Great stocking stuffer and gift"
-  ],
-  "keywords": [
-   "plug",
-   "usb",
-   "christmas",
-   "tree",
-   "projector",
-   "night",
-   "light"
-  ],
-  "tags": [
-   "new",
-   "trending"
-  ],
-  "pop": 0,
-  "days": [
-   7,
-   14
-  ],
-  "from": "CN",
-  "supplier": {
-   "name": "CJdropshipping",
-   "sku": "CJYS315715002BY",
-   "url": "https://cjdropshipping.com/product/x-p-2609120245271608200.html",
-   "cost": 14.21
-  },
-  "options": {
-   "name": "Pack",
-   "values": [
-    {
-     "v": "1 projector",
-     "add": 0,
-     "sku": "CJYS315715002BY"
-    },
-    {
-     "v": "2 projectors",
-     "add": 10,
-     "sku": "CJYS315715005EV"
-    }
-   ]
-  },
-  "video": "img/v/plug-in-tree-projector.mp4",
-  "poster": "img/v/plug-in-tree-projector.jpg"
- },
- {
   "id": "led-figure-tealights",
   "cat": "lights",
   "name": "Santa & Snowman LED Tealights",
@@ -773,62 +773,62 @@ window.PRODUCTS = [
    "name": "Set",
    "values": [
     {
-     "v": "Bell \u00b7 1 pcs",
+     "v": "Bell · 1 pcs",
      "add": 0.0,
      "sku": "CJYS256428602BY"
     },
     {
-     "v": "Christmas Tree \u00b7 1 pcs",
+     "v": "Christmas Tree · 1 pcs",
      "add": 0.0,
      "sku": "CJYS256428606FU"
     },
     {
-     "v": "Santa \u00b7 1 pcs",
+     "v": "Santa · 1 pcs",
      "add": 0.0,
      "sku": "CJYS256428610JQ"
     },
     {
-     "v": "Snowman \u00b7 1 pcs",
+     "v": "Snowman · 1 pcs",
      "add": 0.0,
      "sku": "CJYS256428614NM"
     },
     {
-     "v": "Bell Santa Christmas Tree \u00b7 3 pcs",
+     "v": "Bell Santa Christmas Tree · 3 pcs",
      "add": 1.0,
      "sku": "CJYS256428627AZ"
     },
     {
-     "v": "Santa, snowman & tree \u00b7 3 pcs",
+     "v": "Santa, snowman & tree · 3 pcs",
      "add": 1.0,
      "sku": "CJYS256428623WD"
     },
     {
-     "v": "Mixed \u00b7 5 pcs",
+     "v": "Mixed · 5 pcs",
      "add": 2.0,
      "sku": "CJYS256428632FU"
     },
     {
-     "v": "Bell \u00b7 12 pcs",
+     "v": "Bell · 12 pcs",
      "add": 7.0,
      "sku": "CJYS256428605EV"
     },
     {
-     "v": "Christmas Tree \u00b7 12 pcs",
+     "v": "Christmas Tree · 12 pcs",
      "add": 7.0,
      "sku": "CJYS256428609IR"
     },
     {
-     "v": "Santa \u00b7 12 pcs",
+     "v": "Santa · 12 pcs",
      "add": 7.0,
      "sku": "CJYS256428613MN"
     },
     {
-     "v": "Snowman \u00b7 12 pcs",
+     "v": "Snowman · 12 pcs",
      "add": 7.0,
      "sku": "CJYS256428617QJ"
     },
     {
-     "v": "Standing Elderly \u00b7 12 pcs",
+     "v": "Standing Elderly · 12 pcs",
      "add": 7.0,
      "sku": "CJYS256428621UF"
     }
@@ -2620,22 +2620,22 @@ window.PRODUCTS = [
    "name": "Style",
    "values": [
     {
-     "v": "With Light \u00b7 8 in",
+     "v": "With Light · 8 in",
      "add": 0.0,
      "sku": "CJYS220154502BY"
     },
     {
-     "v": "Without Light \u00b7 8 in",
+     "v": "Without Light · 8 in",
      "add": 0.0,
      "sku": "CJYS220154504DW"
     },
     {
-     "v": "Without Light \u00b7 12 in",
+     "v": "Without Light · 12 in",
      "add": 2.0,
      "sku": "CJYS220154505EV"
     },
     {
-     "v": "With Light \u00b7 12 in",
+     "v": "With Light · 12 in",
      "add": 3.0,
      "sku": "CJYS220154503CX"
     }
@@ -2693,7 +2693,7 @@ window.PRODUCTS = [
      "sku": "CJYS188276408HS"
     },
     {
-     "v": "Christmas Tree \u00b7 wood base",
+     "v": "Christmas Tree · wood base",
      "add": 0.0,
      "sku": "CJYS188276402BY"
     },
@@ -2708,7 +2708,7 @@ window.PRODUCTS = [
      "sku": "CJYS188276406FU"
     },
     {
-     "v": "Reindeer \u00b7 wood base",
+     "v": "Reindeer · wood base",
      "add": 0.0,
      "sku": "CJYS188276404DW"
     },
@@ -4000,62 +4000,62 @@ window.PRODUCTS = [
    "name": "Color / size",
    "values": [
     {
-     "v": "Black \u00b7 L",
+     "v": "Black · L",
      "add": 0.0,
      "sku": "CJYD258627720TG"
     },
     {
-     "v": "Black \u00b7 M",
+     "v": "Black · M",
      "add": 0.0,
      "sku": "CJYD258627719SH"
     },
     {
-     "v": "Black \u00b7 XL",
+     "v": "Black · XL",
      "add": 0.0,
      "sku": "CJYD258627721UF"
     },
     {
-     "v": "Dark Gray \u00b7 L",
+     "v": "Dark Gray · L",
      "add": 0.0,
      "sku": "CJYD258627714NM"
     },
     {
-     "v": "Dark Gray \u00b7 M",
+     "v": "Dark Gray · M",
      "add": 0.0,
      "sku": "CJYD258627713MN"
     },
     {
-     "v": "Dark Gray \u00b7 XL",
+     "v": "Dark Gray · XL",
      "add": 0.0,
      "sku": "CJYD258627715OL"
     },
     {
-     "v": "Black \u00b7 2XL",
+     "v": "Black · 2XL",
      "add": 1.0,
      "sku": "CJYD258627722VE"
     },
     {
-     "v": "Black \u00b7 3XL",
+     "v": "Black · 3XL",
      "add": 1.0,
      "sku": "CJYD258627723WD"
     },
     {
-     "v": "Black \u00b7 4XL",
+     "v": "Black · 4XL",
      "add": 1.0,
      "sku": "CJYD258627724XC"
     },
     {
-     "v": "Dark Gray \u00b7 2XL",
+     "v": "Dark Gray · 2XL",
      "add": 1.0,
      "sku": "CJYD258627716PK"
     },
     {
-     "v": "Dark Gray \u00b7 3XL",
+     "v": "Dark Gray · 3XL",
      "add": 1.0,
      "sku": "CJYD258627717QJ"
     },
     {
-     "v": "Dark Gray \u00b7 4XL",
+     "v": "Dark Gray · 4XL",
      "add": 1.0,
      "sku": "CJYD258627718RI"
     }
@@ -4295,42 +4295,42 @@ window.PRODUCTS = [
    "name": "Color / size",
    "values": [
     {
-     "v": "Green \u00b7 L",
+     "v": "Green · L",
      "add": 0.0,
      "sku": "CJMY260156807GT"
     },
     {
-     "v": "Green \u00b7 M",
+     "v": "Green · M",
      "add": 0.0,
      "sku": "CJMY260156806FU"
     },
     {
-     "v": "Green \u00b7 S",
+     "v": "Green · S",
      "add": 0.0,
      "sku": "CJMY260156805EV"
     },
     {
-     "v": "Green \u00b7 XL",
+     "v": "Green · XL",
      "add": 0.0,
      "sku": "CJMY260156808HS"
     },
     {
-     "v": "Red \u00b7 L",
+     "v": "Red · L",
      "add": 0.0,
      "sku": "CJMY260156803CX"
     },
     {
-     "v": "Red \u00b7 M",
+     "v": "Red · M",
      "add": 0.0,
      "sku": "CJMY260156802BY"
     },
     {
-     "v": "Red \u00b7 S",
+     "v": "Red · S",
      "add": 0.0,
      "sku": "CJMY260156801AZ"
     },
     {
-     "v": "Red \u00b7 XL",
+     "v": "Red · XL",
      "add": 0.0,
      "sku": "CJMY260156804DW"
     }
@@ -4520,47 +4520,47 @@ window.PRODUCTS = [
    "name": "Color / boxes",
    "values": [
     {
-     "v": "Red \u00b7 10 boxes",
+     "v": "Red · 10 boxes",
      "add": 0.0,
      "sku": "CJYD187890101AZ"
     },
     {
-     "v": "Red \u00b7 6 boxes",
+     "v": "Red · 6 boxes",
      "add": 0.0,
      "sku": "CJYD187890107GT"
     },
     {
-     "v": "Green \u00b7 10 boxes",
+     "v": "Green · 10 boxes",
      "add": 0.0,
      "sku": "CJYD187890104DW"
     },
     {
-     "v": "Green \u00b7 6 boxes",
+     "v": "Green · 6 boxes",
      "add": 0.0,
      "sku": "CJYD187890108HS"
     },
     {
-     "v": "Red \u00b7 12 boxes",
+     "v": "Red · 12 boxes",
      "add": 1.0,
      "sku": "CJYD187890102BY"
     },
     {
-     "v": "Green \u00b7 12 boxes",
+     "v": "Green · 12 boxes",
      "add": 1.0,
      "sku": "CJYD187890105EV"
     },
     {
-     "v": "Red \u00b7 16 boxes",
+     "v": "Red · 16 boxes",
      "add": 2.0,
      "sku": "CJYD187890103CX"
     },
     {
-     "v": "Green \u00b7 16 boxes",
+     "v": "Green · 16 boxes",
      "add": 2.0,
      "sku": "CJYD187890106FU"
     },
     {
-     "v": "Red \u00b7 20 boxes",
+     "v": "Red · 20 boxes",
      "add": 5.0,
      "sku": "CJYD187890113MN"
     }
@@ -4673,62 +4673,62 @@ window.PRODUCTS = [
    "name": "Design / size",
    "values": [
     {
-     "v": "Classic Santa Face \u00b7 Small",
+     "v": "Classic Santa Face · Small",
      "add": 0.0,
      "sku": "CJSD308083006FU"
     },
     {
-     "v": "Gold Rim Santa \u00b7 Small",
+     "v": "Gold Rim Santa · Small",
      "add": 0.0,
      "sku": "CJSD308083010JQ"
     },
     {
-     "v": "Green Reindeer \u00b7 Small",
+     "v": "Green Reindeer · Small",
      "add": 0.0,
      "sku": "CJSD308083002BY"
     },
     {
-     "v": "Green Waving Santa \u00b7 Small",
+     "v": "Green Waving Santa · Small",
      "add": 0.0,
      "sku": "CJSD308083004DW"
     },
     {
-     "v": "Red Reindeer \u00b7 Small",
+     "v": "Red Reindeer · Small",
      "add": 0.0,
      "sku": "CJSD308083012LO"
     },
     {
-     "v": "Red Waving Santa \u00b7 Small",
+     "v": "Red Waving Santa · Small",
      "add": 0.0,
      "sku": "CJSD308083008HS"
     },
     {
-     "v": "Classic Santa Face \u00b7 Large",
+     "v": "Classic Santa Face · Large",
      "add": 1.0,
      "sku": "CJSD308083005EV"
     },
     {
-     "v": "Gold Rim Santa \u00b7 Large",
+     "v": "Gold Rim Santa · Large",
      "add": 1.0,
      "sku": "CJSD308083009IR"
     },
     {
-     "v": "Green Reindeer \u00b7 Large",
+     "v": "Green Reindeer · Large",
      "add": 1.0,
      "sku": "CJSD308083001AZ"
     },
     {
-     "v": "Green Waving Santa \u00b7 Large",
+     "v": "Green Waving Santa · Large",
      "add": 1.0,
      "sku": "CJSD308083003CX"
     },
     {
-     "v": "Red Reindeer \u00b7 Large",
+     "v": "Red Reindeer · Large",
      "add": 1.0,
      "sku": "CJSD308083011KP"
     },
     {
-     "v": "Red Waving Santa \u00b7 Large",
+     "v": "Red Waving Santa · Large",
      "add": 1.0,
      "sku": "CJSD308083007GT"
     }
