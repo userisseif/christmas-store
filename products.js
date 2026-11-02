@@ -114,6 +114,7 @@ window.PRODUCTS = [
    ]
   },
   "video": "img/v/plug-in-tree-projector.mp4",
+  "videoFirst": true,
   "poster": "img/v/plug-in-tree-projector.jpg"
  },
  {

@@ -388,11 +388,13 @@ function product(id) {
   const d1 = new Date(Date.now() + dMin * 864e5), d2 = new Date(Date.now() + dMax * 864e5);
   const fmt = d => d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 
+  const vidFirst = !!(p.video && p.videoFirst);
+  const vidThumb = p.video ? `<button data-media="video" class="th-vid" aria-label="Watch video"><img src="${p.poster || p.img[0]}" alt=""><span>▶</span></button>` : "";
   app.innerHTML = `<div class="wrap">
     <div class="crumbs" style="padding-top:24px"><a href="#/">Home</a> / <a href="#/shop?cat=${p.cat}">${esc(catById[p.cat].name)}</a> / ${esc(p.name)}</div>
     <div class="pdp">
       <div class="gallery">
-        <div class="thumbs">${p.img.map((src, i) => `<button data-img="${i}" class="${i ? "" : "on"}" aria-label="Image ${i + 1}"><img src="${src}" alt=""></button>`).join("")}${p.video ? `<button data-media="video" class="th-vid" aria-label="Watch video"><img src="${p.poster || p.img[0]}" alt=""><span>▶</span></button>` : ""}${p.room ? `<button data-media="room" class="th-room" aria-label="See it in a room"><img src="${ROOMS[p.room.scene].img}" alt=""><span>In your<br>home</span></button>` : ""}</div>
+        <div class="thumbs">${vidFirst ? vidThumb : ""}${p.img.map((src, i) => `<button data-img="${i}" class="${i || vidFirst ? "" : "on"}" aria-label="Image ${i + 1}"><img src="${src}" alt=""></button>`).join("")}${p.video && !vidFirst ? vidThumb : ""}${p.room ? `<button data-media="room" class="th-room" aria-label="See it in a room"><img src="${ROOMS[p.room.scene].img}" alt=""><span>In your<br>home</span></button>` : ""}</div>
         <div class="main-img" id="mainImg"><img src="${p.img[0]}" alt="${esc(p.name)}"><div class="tags">${off ? `<span class="tag sale">Save ${off}%</span>` : ""}${S.sampleMode ? '<span class="tag sample">Sample</span>' : ""}</div></div>
       </div>
       <div>
@@ -449,6 +451,7 @@ function product(id) {
   const showRoom = b => { mi.classList.add("is-media"); roomView(mi, p); mark(b); };
   const vb = $('[data-media="video"]'), rb = $('[data-media="room"]');
   if (vb) vb.onclick = () => showVideo(vb);
+  if (vb && vidFirst) showVideo(vb);
   if (rb) rb.onclick = () => showRoom(rb);
   if ($("#roomCta")) $("#roomCta").onclick = () => { showRoom(rb); mi.scrollIntoView({ behavior: "smooth", block: "center" }); };
   $$(".opts.colors [data-color]").forEach(b => b.onclick = () => {
