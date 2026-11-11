@@ -32,7 +32,7 @@ def page(title, desc, canon, img, body, ld):
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>">
 <script type="application/ld+json">{json.dumps(ld)}</script>{STYLE}</head><body>
 <header><a href="{BASE}">🎄 Evergreen Lane</a></header><main>{body}</main>
-<footer>Evergreen Lane · Christmas decor, lights &amp; gifts · Ships to the US · <a href="{BASE}shop/">All products</a></footer></body></html>"""
+<footer>Evergreen Lane · Christmas decor, lights &amp; gifts · Ships to the US<br><a href="{BASE}shop/">All products</a> · <a href="{BASE}policies/shipping/">Shipping</a> · <a href="{BASE}policies/returns/">Returns</a> · <a href="{BASE}policies/privacy/">Privacy</a> · <a href="{BASE}policies/terms/">Terms</a> · <a href="{BASE}policies/contact/">Contact</a></footer></body></html>"""
 
 def card(p, prefix):
     return f'<a href="{prefix}{p["id"]}/"><img src="{BASE}{p["thumb"]}" alt="{e(p["name"])}" loading="lazy"><div>{e(p["name"])}</div><div class="muted">${p["price"]:.2f}</div></a>'
@@ -72,6 +72,54 @@ ld = {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Ever
 open("shop/index.html", "w").write(page("All Products | Evergreen Lane Christmas Shop",
      "Shop Christmas lights, ornaments, mugs, wreaths, trees, candles, sweaters and gifts from Evergreen Lane. Most under $30, ships to the US.",
      BASE + "shop/", BASE + P[0]["img"][0], body, ld))
+
+# ---- static policy pages (Google Merchant Center needs crawlable ones) ----
+EMAIL = "evergreenlaneshop@gmail.com"
+POL = {
+ "shipping": ("Shipping policy", f"""<p>We ship to the United States only. Orders are processed within 1 to 3 business days.</p>
+<p>Items from our US warehouse usually arrive in 5 to 8 business days; items from our international warehouse usually arrive in 7 to 14 business days. Each product page shows its own delivery estimate.</p>
+<p><b>Shipping cost:</b> free on orders over $50. Orders under $50 ship for a flat $5.99.</p>
+<p>Some items ship separately from different warehouses, so they may arrive in more than one package. Every order gets a tracking number by email.</p>
+<h2>Christmas delivery</h2><p>To receive your order before Christmas, we recommend ordering by December 5.</p>"""),
+ "returns": ("Returns &amp; refunds", f"""<p>We want you to love your order. You can request a return or refund within <b>30 days of delivery</b>.</p>
+<p>To start a return, email <a href="mailto:{EMAIL}">{EMAIL}</a> with your order number and a photo of the item. We reply within 24 hours with the next steps.</p>
+<p><b>Damaged, faulty or wrong items:</b> we send a free replacement or a full refund, and you don't pay anything to return them.</p>
+<p><b>Changed your mind:</b> items must be unused and in their original packaging. Once the return is received, we refund the item price.</p>
+<p>Refunds go back to your original payment method through PayPal within 5 to 10 business days of approval.</p>"""),
+ "privacy": ("Privacy policy", f"""<p>Evergreen Lane collects only what we need to fulfil your order: your name, shipping address, email, and the items you buy.</p>
+<p>Payments are handled by PayPal. We never see or store your card details.</p>
+<p>We share your name and shipping address only with the supplier and carrier that deliver your order.</p>
+<p>We use Google Analytics to understand how visitors use the site (pages viewed, device type, rough location). It uses cookies; you can block them in your browser settings.</p>
+<p>We never sell your personal information. To see or delete the data we hold about you, email <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>"""),
+ "terms": ("Terms of service", f"""<p>By ordering from Evergreen Lane you agree to these terms.</p>
+<p><b>Prices</b> are in US dollars and include all product costs. Shipping is shown at checkout before you pay.</p>
+<p><b>Payment</b> is taken through PayPal's secure checkout when you place your order.</p>
+<p><b>Product photos</b> show the item as closely as possible; colors can vary slightly by screen.</p>
+<p><b>Shipping and returns</b> follow our <a href="{BASE}policies/shipping/">shipping policy</a> and <a href="{BASE}policies/returns/">returns policy</a>.</p>
+<p>Questions? Email <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>"""),
+ "contact": ("Contact us", f"""<p>Questions about an order or a product? We reply within 24 hours.</p>
+<p><b>Email:</b> <a href="mailto:{EMAIL}">{EMAIL}</a></p><p>Evergreen Lane is an online-only Christmas shop shipping to the United States.</p>"""),
+}
+for k, (t, b) in POL.items():
+    url = f"{BASE}policies/{k}/"; urls.append(url)
+    os.makedirs(f"policies/{k}", exist_ok=True)
+    open(f"policies/{k}/index.html", "w").write(page(f"{html.unescape(t)} | Evergreen Lane", f"Evergreen Lane {html.unescape(t).lower()}.", url,
+        BASE + P[0]["img"][0], f"<h1>{t}</h1>{b}", {"@context": "https://schema.org", "@type": "WebPage", "name": html.unescape(t), "url": url}))
+
+# ---- Google Merchant Center product feed ----
+from xml.sax.saxutils import escape as x
+items = []
+for p in P:
+    cat = C.get(p["cat"], {"name": p["cat"]})
+    imgs = [BASE + i for i in p["img"]]
+    desc = (p["desc"] + " " + " ".join(p.get("bullets", []))).strip()[:4900]
+    items.append(f"""<item><g:id>{x(p["id"])}</g:id><title>{x(p["name"][:150])}</title><description>{x(desc)}</description>
+<link>{BASE}shop/{p["id"]}/</link><g:image_link>{x(imgs[0])}</g:image_link>{"".join(f"<g:additional_image_link>{x(i)}</g:additional_image_link>" for i in imgs[1:10])}
+<g:price>{p["price"]:.2f} USD</g:price><g:availability>in_stock</g:availability><g:condition>new</g:condition>
+<g:identifier_exists>no</g:identifier_exists><g:product_type>{x("Christmas > " + cat["name"])}</g:product_type>
+<g:shipping><g:country>US</g:country><g:price>{"0.00" if p["price"] >= 50 else "5.99"} USD</g:price></g:shipping></item>""")
+open("google-feed.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0"><channel>'
+    f'<title>Evergreen Lane</title><link>{BASE}</link><description>Christmas decor, lights and gifts</description>\n' + "\n".join(items) + "\n</channel></rss>\n")
 
 open("sitemap.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     + "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n")

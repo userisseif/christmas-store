@@ -2,6 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://userisseif.github.io/christmas-store/</loc></url>
   <url><loc>https://userisseif.github.io/christmas-store/shop/</loc></url>
+  <url><loc>https://userisseif.github.io/christmas-store/shop/plug-in-tree-projector/</loc></url>
   <url><loc>https://userisseif.github.io/christmas-store/shop/icicle-curtain-lights/</loc></url>
   <url><loc>https://userisseif.github.io/christmas-store/shop/ribbon-fairy-lights/</loc></url>
   <url><loc>https://userisseif.github.io/christmas-store/shop/star-fairy-string/</loc></url>
@@ -9,7 +10,6 @@
   <url><loc>https://userisseif.github.io/christmas-store/shop/star-window-light/</loc></url>
   <url><loc>https://userisseif.github.io/christmas-store/shop/window-silhouette-lights/</loc></url>
   <url><loc>https://userisseif.github.io/christmas-store/shop/snowflake-projector/</loc></url>
-  <url><loc>https://userisseif.github.io/christmas-store/shop/plug-in-tree-projector/</loc></url>
   <url><loc>https://userisseif.github.io/christmas-store/shop/led-figure-tealights/</loc></url>
   <url><loc>https://userisseif.github.io/christmas-store/shop/spiral-tree-lamp/</loc></url>
   <url><loc>https://userisseif.github.io/christmas-store/shop/star-jingle-bell-ornament/</loc></url>
@@ -69,4 +69,9 @@
   <url><loc>https://userisseif.github.io/christmas-store/shop/dangly-legs-stocking/</loc></url>
   <url><loc>https://userisseif.github.io/christmas-store/shop/crystal-advent-calendar/</loc></url>
   <url><loc>https://userisseif.github.io/christmas-store/shop/angel-preserved-rose/</loc></url>
+  <url><loc>https://userisseif.github.io/christmas-store/policies/shipping/</loc></url>
+  <url><loc>https://userisseif.github.io/christmas-store/policies/returns/</loc></url>
+  <url><loc>https://userisseif.github.io/christmas-store/policies/privacy/</loc></url>
+  <url><loc>https://userisseif.github.io/christmas-store/policies/terms/</loc></url>
+  <url><loc>https://userisseif.github.io/christmas-store/policies/contact/</loc></url>
 </urlset>
