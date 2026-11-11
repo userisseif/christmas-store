@@ -3,7 +3,7 @@ The live store is a hash-routed app that search engines can't index page by page
 Run from the repo root after products.js changes: python3 tools/seo_pages.py"""
 import html, json, os, subprocess
 
-BASE = "https://userisseif.github.io/christmas-store/"
+BASE = "https://evergreenlane.netlify.app/"
 data = json.loads(subprocess.run(["node", "-e", 'global.window={STORE:{}};require("./products.js");'
     'console.log(JSON.stringify({p:window.PRODUCTS,c:window.CATEGORIES}))'], capture_output=True, text=True, check=True).stdout)
 P, C = data["p"], {c["id"]: c for c in data["c"]}
