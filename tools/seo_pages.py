@@ -84,7 +84,7 @@ POL = {
  "returns": ("Returns &amp; refunds", f"""<p>We want you to love your order. You can request a return or refund within <b>30 days of delivery</b>.</p>
 <p>To start a return, email <a href="mailto:{EMAIL}">{EMAIL}</a> with your order number and a photo of the item. We reply within 24 hours with the next steps.</p>
 <p><b>Damaged, faulty or wrong items:</b> we send a free replacement or a full refund, and you don't pay anything to return them.</p>
-<p><b>Changed your mind:</b> items must be unused and in their original packaging. Once the return is received, we refund the item price.</p>
+<p><b>Changed your mind:</b> items must be unused and in their original packaging, and you pay the return postage. There is no restocking fee. Once the return is received, we refund the item price.</p>
 <p>Refunds go back to your original payment method through PayPal within 5 to 10 business days of approval.</p>"""),
  "privacy": ("Privacy policy", f"""<p>Evergreen Lane collects only what we need to fulfil your order: your name, shipping address, email, and the items you buy.</p>
 <p>Payments are handled by PayPal. We never see or store your card details.</p>
