@@ -35,6 +35,7 @@ const unitPrice = (p, opt) => p.price + (p.options && opt ? (p.options.values.fi
 const lineKey = (id, color, opt) => [id, color || "", opt || ""].join("|");
 function addToCart(id, color, opt, qty = 1) {
   const p = byId[id];
+  try { window.gtag && gtag("event", "add_to_cart", { currency: "USD", value: p.price * qty, items: [{ item_id: id, item_name: p.name, price: p.price, quantity: qty }] }); } catch (e) {}
   color = color ?? (p.colors ? p.colors[0] : null);
   opt = opt ?? (p.options ? p.options.values[0].v : null);
   const key = lineKey(id, color, opt);
@@ -609,7 +610,7 @@ function loadPayPal() {
   const render = () => window.paypal.Buttons({
     style: { shape: "pill", color: "gold", layout: "vertical", label: "checkout" },
     createOrder: (d, actions) => actions.order.create(orderPayload()),
-    onApprove: (d, actions) => actions.order.capture().then(o => finishOrder(o.id)),
+    onApprove: (d, actions) => actions.order.capture().then(o => { try { window.gtag && gtag("event", "purchase", { transaction_id: o.id, currency: "USD", value: totals().total }); } catch (e) {} finishOrder(o.id); }),
     onError: () => toast("Payment could not be completed. Please try again.")
   }).render("#paypal-buttons");
   if (window.paypal) return render();

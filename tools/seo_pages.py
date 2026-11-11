@@ -24,7 +24,7 @@ footer{text-align:center;padding:24px;color:var(--mut);font-size:14px}
 </style>"""
 
 def page(title, desc, canon, img, body, ld):
-    return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><script async src="https://www.googletagmanager.com/gtm.js?id=GTM-W983B52W"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());</script><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="{canon}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Evergreen Lane"><meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{canon}"><meta property="og:image" content="{img}">
