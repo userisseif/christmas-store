@@ -242,6 +242,8 @@ details.acc p,details.acc ul{color:#4a4741;margin:12px 0 0}
 .cd-foot{padding:18px 20px;border-top:1px solid var(--line);background:var(--paper)}
 .sumrow{display:flex;justify-content:space-between;margin-bottom:6px;font-size:14px}
 .sumrow.total{font-size:18px;font-weight:700;margin:10px 0 14px}
+.dealnudge{background:var(--gold-soft);border:1px solid var(--gold);color:var(--pine-ink);border-radius:10px;padding:8px 11px;font-size:13px;margin-bottom:12px;text-align:center}
+.dealnudge.on{background:#eaf4ee;border-color:#8bc7a5;color:var(--pine)}
 .cart-empty{text-align:center;padding:60px 10px}
 
 /* mobile menu */

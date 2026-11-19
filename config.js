@@ -6,8 +6,17 @@ window.STORE = {
   currency: "USD",
   freeShippingOver: 50,                 // free US shipping threshold in $
   shippingFee: 5.99,                    // flat shipping under the threshold
-  coupons: { XMAS10: 10, LAURIE10: 10, MIRANDA10: 10 },             // promo codes: CODE: percent off
-  couponBanner: "Use code <b>XMAS10</b> for 10% off",
+  coupons: { XMAS10: 10, LAURIE10: 10, MIRANDA10: 10, GOBBLE15: 15 },  // promo codes: CODE: percent off
+  couponBanner: "🦃 <b>Thanksgiving Sale</b> &nbsp;·&nbsp; Buy 1 Get 1 <b>50% off</b> &nbsp;·&nbsp; code <b>GOBBLE15</b> for 15% off",
+
+  // ===== Automatic holiday deals (applied in the cart, no code needed) =====
+  // The store always gives the shopper the single BEST deal — auto deals and any
+  // code never stack, so your margin is safe. Set enabled:false to turn a deal off.
+  deals: {
+    bogo:   { enabled: true, pct: 50, label: "Buy 1 Get 1 50% off" },      // cheapest item of each pair, 50% off
+    bundle: { enabled: true, minItems: 2, pct: 15, label: "Buy 2+ items, 15% off" }, // whole-order % at 2+ items
+    pitch:  "🦃 Thanksgiving Sale — Buy 1 Get 1 50% off, or 15% off any 2 items"
+  },
   shipsTo: "the United States",
   deliveryText: "Most orders arrive in 7 to 14 days",
 

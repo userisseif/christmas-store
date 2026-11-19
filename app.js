@@ -46,13 +46,32 @@ function addToCart(id, color, opt, qty = 1) {
   toast(`Added to cart: ${p.name}`);
   openCart();
 }
+// Best automatic deal + any code — never stacked, shopper always gets the single biggest saving.
+function bestDeal(sub) {
+  const count = cart.reduce((s, l) => s + l.qty, 0);
+  const D = S.deals || {};
+  const opts = [];
+  if (coupon && S.coupons?.[coupon]) opts.push({ amt: sub * S.coupons[coupon] / 100, label: `Code ${coupon} −${S.coupons[coupon]}%` });
+  if (D.bundle?.enabled && count >= (D.bundle.minItems || 2)) opts.push({ amt: sub * D.bundle.pct / 100, label: `${D.bundle.label} −${D.bundle.pct}%` });
+  if (D.bogo?.enabled && count >= 2) {
+    const units = [];
+    cart.forEach(l => { const u = unitPrice(byId[l.id], l.opt); for (let i = 0; i < l.qty; i++) units.push(u); });
+    units.sort((a, b) => a - b);
+    let amt = 0;                                   // every 2nd (cheaper) unit of each pair, pct off
+    for (let i = 0; i < units.length - (units.length % 2); i += 2) amt += units[i] * (D.bogo.pct / 100);
+    if (amt > 0) opts.push({ amt, label: D.bogo.label });
+  }
+  if (!opts.length) return { amt: 0, label: "" };
+  return opts.reduce((a, b) => (b.amt > a.amt ? b : a));
+}
 function totals() {
   const sub = cart.reduce((s, l) => s + unitPrice(byId[l.id], l.opt) * l.qty, 0);
-  const pct = coupon && S.coupons?.[coupon] ? S.coupons[coupon] : 0;
-  const disc = +(sub * pct / 100).toFixed(2);
+  const deal = bestDeal(sub);
+  const disc = +deal.amt.toFixed(2);
   const after = sub - disc;
   const ship = cart.length === 0 || after >= S.freeShippingOver ? 0 : S.shippingFee;
-  return { sub, disc, ship, total: +(after + ship).toFixed(2), count: cart.reduce((s, l) => s + l.qty, 0), pct };
+  const pct = sub ? Math.round(disc / sub * 100) : 0;
+  return { sub, disc, ship, total: +(after + ship).toFixed(2), count: cart.reduce((s, l) => s + l.qty, 0), pct, dealLabel: deal.label };
 }
 
 /* ---------- small UI helpers ---------- */
@@ -132,9 +151,17 @@ function shipMsg(t) {
   const pct = Math.min(100, ((t.sub - t.disc) / S.freeShippingOver) * 100);
   return (left > 0 ? `You're <b>${money(left)}</b> away from free shipping 🎁` : `You've unlocked <b>free shipping</b> 🎉`) + `<div class="bar"><i style="width:${pct}%"></i></div>`;
 }
+function dealNudge(t) {
+  const D = S.deals || {};
+  if (t.count === 1 && (D.bogo?.enabled || D.bundle?.enabled))
+    return `<div class="dealnudge">🦃 Add 1 more item — <b>Buy 1 Get 1 50% off</b> kicks in</div>`;
+  if (t.dealLabel && t.disc)
+    return `<div class="dealnudge on">🎉 <b>${esc(t.dealLabel)}</b> applied</div>`;
+  return "";
+}
 function summaryRows(t) {
-  return `<div class="sumrow"><span>Subtotal (${t.count} item${t.count === 1 ? "" : "s"})</span><span>${money(t.sub)}</span></div>
-    ${t.disc ? `<div class="sumrow" style="color:var(--berry)"><span>Discount (${esc(coupon)} −${t.pct}%)</span><span>−${money(t.disc)}</span></div>` : ""}
+  return `${dealNudge(t)}<div class="sumrow"><span>Subtotal (${t.count} item${t.count === 1 ? "" : "s"})</span><span>${money(t.sub)}</span></div>
+    ${t.disc ? `<div class="sumrow" style="color:var(--berry)"><span>${esc(t.dealLabel || "Discount")}</span><span>−${money(t.disc)}</span></div>` : ""}
     <div class="sumrow"><span>Shipping</span><span>${t.ship ? money(t.ship) : "Free"}</span></div>
     <div class="sumrow total"><span>Total</span><span>${money(t.total)}</span></div>`;
 }
@@ -261,7 +288,7 @@ function home() {
   </div></section>
   <section class="section" style="padding-top:0"><div class="wrap">
     <div class="band reveal">
-      <div><span class="eyebrow" style="color:#ffd9a0">Holiday offer</span><h2>10% off everything with code XMAS10</h2><p>Stock up on lights, ornaments and gifts before the big day. Enter the code at checkout, and orders over $${S.freeShippingOver} ship free.</p><a href="#/shop" class="btn btn-light">Start shopping</a></div>
+      <div><span class="eyebrow" style="color:#ffd9a0">🦃 Thanksgiving Sale</span><h2>Buy 1 Get 1 50% off — or 15% off any 2 items</h2><p>Mix and match any lights, ornaments and gifts. The deal applies automatically in your cart, and orders over $${S.freeShippingOver} ship free. Use code <b>GOBBLE15</b> for 15% off a single item too.</p><a href="#/shop" class="btn btn-light">Shop the sale</a></div>
       <img src="${S.bandImg}" alt="" loading="lazy">
     </div>
   </div></section>
@@ -591,7 +618,7 @@ function orderPayload() {
   return {
     intent: "CAPTURE",
     purchase_units: [{
-      description: `${S.name} order${t.disc && coupon ? " (code " + coupon + ")" : ""}`,
+      description: `${S.name} order${t.disc ? " — " + (t.dealLabel || "discount applied") : ""}`.slice(0, 127),
       custom_id: ($("#gift")?.value || "").slice(0, 120),
       items,
       amount: {
